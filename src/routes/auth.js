@@ -24,7 +24,7 @@ router.post("/signup", async (req, res) => {
     return res.status(401).json(err);
   }
 });
-
+ 
 //login
 router.post("/login", async (req, res) => {
   const user = await User.findOne({

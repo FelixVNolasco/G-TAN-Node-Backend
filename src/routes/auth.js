@@ -32,7 +32,7 @@ router.post("/login", async (req, res) => {
   });
 
   if (!user) {
-    return res.status(401).json("User or password is wrong");
+    return res.status(401).json("Email or password is wrong");
   } else {
     const hashedPassword = CryptoJS.AES.decrypt(
       user.password,

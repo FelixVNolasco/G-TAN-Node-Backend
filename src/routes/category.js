@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Post = require("../models/Post");
+const Category = require("../models/Category");
 
 const {
   // verifyToken,
@@ -7,58 +7,58 @@ const {
   // verifyTokenAndAdmin,
 } = require("../middleware/verifyToken");
 
-//CREATE POST
+//CREATE CATEGORY
 router.post("/", verifyTokenAndAuthorization, async (req, res) => {
-  const newPost = new Post(req.body);
+  const newCategory = new Category(req.body);
   try {
-    const savedPost = await newPost.save();
-    res.status(200).json(savedPost);
+    const savedCategory = await newCategory.save();
+    res.status(200).json(savedCategory);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//UPDATE POST
+//UPDATE CATEGORY
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const updatedPost = await Post.findByIdAndUpdate(
+    const updatedCategory = await Category.findByIdAndUpdate(
       req.params.id,
       {
         $set: req.body,
       },
       { new: true }
     );
-    res.status(200).json(updatedPost);
+    res.status(200).json(updatedCategory);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//DELETE POST
+//DELETE CATEGORY
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    await Post.findByIdAndDelete(req.params.id);
-    res.status(200).json("Post has been deleted...");
+    await Category.findByIdAndDelete(req.params.id);
+    res.status(200).json("Category has been deleted...");
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//GET POST
+//GET CATEGORY
 router.get("/find/:id", async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
-    res.status(200).json(post);
+    const category = await Category.findById(req.params.id);
+    res.status(200).json(category);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//GET ALL POSTS
+//GET ALL CATEGORIES
 router.get("/", async (req, res) => {
   try {
-    const posts = await Post.find();
-    res.status(200).json(posts);
+    const categories = await Category.find();
+    res.status(200).json(categories);
   } catch (err) {
     res.status(500).json(err);
   }

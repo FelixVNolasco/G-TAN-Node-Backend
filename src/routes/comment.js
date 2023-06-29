@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const Post = require("../models/Post");
+const Comment = require("../models/Comment");
 
 const {
   // verifyToken,
@@ -7,58 +7,58 @@ const {
   // verifyTokenAndAdmin,
 } = require("../middleware/verifyToken");
 
-//CREATE POST
+//CREATE COMMENT
 router.post("/", verifyTokenAndAuthorization, async (req, res) => {
-  const newPost = new Post(req.body);
+  const newComment = new Comment(req.body);
   try {
-    const savedPost = await newPost.save();
-    res.status(200).json(savedPost);
+    const savedComment = await newComment.save();
+    res.status(200).json(savedComment);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//UPDATE POST
+//UPDATE COMMENT
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    const updatedPost = await Post.findByIdAndUpdate(
+    const updatedComment = await Comment.findByIdAndUpdate(
       req.params.id,
       {
         $set: req.body,
       },
       { new: true }
     );
-    res.status(200).json(updatedPost);
+    res.status(200).json(updatedComment);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//DELETE POST
+//DELETE COMMENT
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   try {
-    await Post.findByIdAndDelete(req.params.id);
-    res.status(200).json("Post has been deleted...");
+    await Comment.findByIdAndDelete(req.params.id);
+    res.status(200).json("Comment has been deleted...");
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//GET POST
+//GET COMMENT
 router.get("/find/:id", async (req, res) => {
   try {
-    const post = await Post.findById(req.params.id);
-    res.status(200).json(post);
+    const comment = await Comment.findById(req.params.id);
+    res.status(200).json(comment);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-//GET ALL POSTS
+//GET ALL COMMENTS
 router.get("/", async (req, res) => {
   try {
-    const posts = await Post.find();
-    res.status(200).json(posts);
+    const comments = await Comment.find();
+    res.status(200).json(comments);
   } catch (err) {
     res.status(500).json(err);
   }

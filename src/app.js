@@ -3,17 +3,17 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 
-const path = require("path");
 const authRouter = require("./routes/auth");
-const productsRouter = require("./routes/product");
+const postRouter = require("./routes/post");
 const userRouter = require("./routes/user");
 const cartRouter = require("./routes/cart");
 const orderRouter = require("./routes/order");
 const checkoutRouter = require("./routes/checkout");
 const restorePasswordRouter = require("./routes/restorePassword");
 const stripe = require("./routes/stripe");
-
-const categoryRouter = require("./routes/categories");
+const commentRouter = require("./routes/comment");
+const scientistRouter = require("./routes/scientist");
+const specialtyRouter = require("./routes/specialties");
 
 const app = express();
 
@@ -31,13 +31,15 @@ app.use(express.json());
 
 app.use("/api/auth", authRouter);
 app.use("/api/users", userRouter);
-app.use("/api/products", productsRouter);
+app.use("/api/post", postRouter);
 app.use("/api/carts", cartRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/checkout", checkoutRouter);
 app.use("/api/auth", restorePasswordRouter);
 app.use("/api/stripe", stripe);
-app.use("/api/categories", categoryRouter);
+app.use("/api/comments", commentRouter);
+app.use("/api/scientist", scientistRouter);
+app.use("/api/specialty", specialtyRouter);
 
 app.get("/", (req, res) => {
   res.send("HOME");
